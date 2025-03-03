@@ -1,0 +1,298 @@
+*, *::after, *::before {
+	margin: 0 0;
+	padding: 0 0;
+	box-sizing: border-box;
+}
+
+::selection {
+	color: #8a39e7;
+	background-color: #fff;
+}
+
+body { 
+	margin: 0;
+	overflow-x: hidden;
+	font-family: "Urbanist", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: normal;
+	font-style: normal;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	align-items: center;
+	background-color: black;
+	position: relative;
+}
+
+a, a:visited {
+	color: inherit;
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+a.btn {
+	padding: 8px 16px;
+	font-weight: 600;
+	border: 1px solid white;
+	border-radius: 25px;
+	display: inline-block;
+	box-shadow: 2px 2px 150px 75px rgba(255, 141, 236, 0.1);
+}
+
+a.btn:last-of-type {
+	border: 1px solid transparent;
+	border-radius: 25px;
+	display: inline-block;
+}
+
+a.btn i {
+	font-size: 12px;
+}
+
+a.btn:hover {
+	cursor: pointer;
+}
+
+a.btn:not(.gradient-button):hover {
+	background-color: white;
+	border: 1px solid white;
+	color: black;
+}
+
+.gradient-button {
+	background: linear-gradient(45deg, #e226b9, #8a39e7, #d247e4, #a863f7);
+	background-size: 300% 300%;
+	animation: gradientMove 4s infinite linear;
+	outline: none;
+}
+
+@keyframes gradientMove {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
+
+canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+
+main, header, footer {
+	z-index: 0;
+}
+
+header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+	max-width: 900px;
+	min-height: 75px;
+	max-height: 75px;
+}
+
+header nav {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	font-weight: 500;
+	color: #cecece;
+}
+
+header img {
+	height: 30px;
+	border: .5px solid aqua;
+	border-radius: 50%;
+}
+
+header nav ul {
+	display: flex;
+	flex-direction: row;
+	li:not(:last-of-type) {
+		margin-right: 15px;
+	}
+	li:hover {
+		border-bottom: 1px solid white;
+		cursor: pointer;
+		color: white;
+	}
+}
+
+h2, .hover-info-container h3 {
+	font-size: 46px;
+	font-weight: 700;
+}
+
+main {
+	width: 100%;
+	max-width: 900px;
+	display: flex;
+	flex-direction: column;
+	min-height: 100svh;
+}
+
+section.hero {
+	height: 100%;
+}
+
+.hero-container {
+	display: flex;
+	flex-direction: column;
+	/* margin-top: 200px; */
+	margin-top: 20svh;
+	/* margin-top: 20%; */
+	min-width: 400px;
+}
+
+.hero-headings {
+	position: relative;
+}
+
+.hero-container p {
+	color: #cecece;
+	line-height: 1.5;
+}
+
+div.hover-info-container {
+	position: absolute;
+	top: 33%;
+	left: 34.5%;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.hero-container > *:not(.btn-container) {
+	margin-bottom: 25px;
+}
+
+.effects-container {
+	z-index: 1;
+	position: absolute;
+	left: 0;
+	flex-direction: row;
+	display: flex;
+	width: 100%;
+	/* height: 45%; */
+	height: 45svh;
+	margin-top: 10svh;
+}
+
+.effects-container div.effect {
+	background-color: transparent;
+	flex-basis: calc(100% / 6);
+	text-align: center;
+	background-color: rgba(255, 141, 236, 0.02);
+	transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-top: 15px solid rgba(255, 141, 236, 0.02);
+	padding: 0 2%;
+
+	h4 {
+		margin-top: 25px;
+		font-size: 22px;
+		font-weight: 100;
+		letter-spacing: 1px;
+	}
+
+	a.btn {
+		margin-top: 25px;
+		box-shadow: none;
+		border: 2px solid white;
+		color: black;
+		display: none;
+		align-self: flex-start;
+		background-color: white;
+		font-weight: 700;
+	}
+
+	a.btn:hover {
+		color: #8a39e7;
+	}
+
+}
+
+.effects-container div.effect ul {
+	margin-top: 25px;
+	align-self: flex-start;
+	display: none;
+	text-align: left;
+	color: rgb(0, 0, 0);
+	font-weight: 500;
+	i {
+		min-width: 25px;
+	}
+}
+
+.effects-container div.effect ul li:not(:last-of-type) {
+	margin-bottom: 8px;
+}
+
+.effects-container div.effect p {
+	margin-top: 25px;
+	text-align: left;
+	color: black;
+	display: none;
+	font-weight: 500;
+}
+
+.effects-container div.effect:hover p, .effects-container div.effect:hover a.btn, .effects-container div.effect:hover ul {
+	display: block;
+
+}
+.effects-container div.effect:hover h4 {
+	color: black;
+	font-weight: 900;
+}
+
+.effects-container div.effect:hover {
+	transform: translateY(-50px);
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+	border-bottom: 5px solid white;
+	/* good idea */
+	/* flex-basis: calc(100% / 2); */
+}
+
+/* could shrink the rest when one is actice */
+.effects-container:hover div.effect:not(:hover) {
+	/* flex-basis: calc(100% / 8); */
+	/* border: 1px solid red; */
+}
+
+@media screen and (max-height: 1050px) {
+	.hero-container {
+		margin-top: 10svh;
+	}
+	.effects-container {
+		height: 55svh;
+		margin-top: 8svh;
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.effects-container div.effect {
+		padding: 0 2%;
+	}
+	.effects-container div.effect p {
+		font-size: 14px;
+	}
+}
+
+/* fix for 850 macbook air */

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morphing GLSL Shader Landing Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://kit.fontawesome.com/df3e6f116a.js" crossorigin="anonymous"></script>
+    <script src="./main.js" type="module"></script>
+    <!-- <script src="./main2.js" type="module"></script> -->
+  </head>
+
+  <body>
+
+    <canvas id="canvas"></canvas>
+    
+    <header>
+      
+      <nav>
+
+        <div class="logo">
+          <img src="./logo.png" alt="">
+        </div>
+
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Contact</li>
+          <li>Business</li>
+          <li>Customers</li>
+          <li>Get a quote</li>
+        </ul>
+
+        <div class="">
+          <a href="" class="btn gradient-button">On Github <i class="fa-brands fa-github"></i></a>
+        </div>
+
+      </nav>
+
+    </header>
+
+    <main>
+
+      <section class="hero">        
+
+        <div class="hero-container">
+
+          <div class="hero-headings">
+            <h2>Transforming <br>
+              Businesses like <div class="hover-info-container"><h3>&nbsp;</h3></div><br>
+              <!-- Hover test div -->
+              <!-- Businesses like <div class="hover-info-container"><h3>Consulting.</h3></div><br> -->
+              never before.
+            </h2>
+            <h3 >
+              <!-- Generate with js. -->
+            </h3>
+          </div>
+
+          <p>
+            We are making the world a better place,<br> and enabling businesses to scale endlessly.
+          </p>
+
+          <div class="btn-container">
+            <a href="" class="btn">Learn more</a>
+            <a href="" class="btn gradient-button">Contact sales</a>
+          </div>
+
+        </div>
+
+        <!-- Split up to 6 sections by industry -->
+        <!-- Just generate them with JS, instead of applying 65 data attrs.  -->
+        <div class="effects-container">
+          <div class="effect" data-effect="0" data-color-test="#e226b9" data-description-test="Finance.">
+            <h4>Finance.</h4>
+            <p>This is a long text describing the feature of whatever, Lorem ipsum dolor sit on this yo, what is this typing all day like a crazy person instead of copy pasting some cool text from AI.</p>
+            <ul>
+              <li><i class="fa-regular fa-envelope"></i> One</li>
+              <li><i class="fa-regular fa-calendar"></i> Two</li>
+              <li><i class="fa-regular fa-font-awesome"></i> Three</li>
+            </ul>
+            <a class="btn">Case studies <i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+          <div class="effect" data-effect="1" data-color-test="#e447c2" data-description-test="Consulting.">
+            <h4>Consulting.</h4>
+            <p>This is a long text describing the feature of whatever, Lorem ipsum dolor sit on this yo, what is this typing all day like a crazy person instead of copy pasting some cool text from AI.</p>
+            <ul>
+              <li><i class="fa-regular fa-envelope"></i> One</li>
+              <li><i class="fa-regular fa-calendar"></i> Two</li>
+              <li><i class="fa-regular fa-font-awesome"></i> Three</li>
+            </ul>
+            <a class="btn">Case studies <i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+          <div class="effect" data-effect="2" data-color-test="#d247e4" data-description-test="IT." >
+            <h4>IT.</h4>
+            <p>This is a long text describing the feature of whatever, Lorem ipsum dolor sit on this yo, what is this typing all day like a crazy person instead of copy pasting some cool text from AI.</p>
+            <ul>
+              <li><i class="fa-regular fa-envelope"></i> One</li>
+              <li><i class="fa-regular fa-calendar"></i> Two</li>
+              <li><i class="fa-regular fa-font-awesome"></i> Three</li>
+            </ul>
+            <a class="btn">Case studies <i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+          <div class="effect" data-effect="3" data-color-test="#dd6fec" data-description-test="Logistics.">
+            <h4>Logistics.</h4>
+            <p>This is a long text describing the feature of whatever, Lorem ipsum dolor sit on this yo, what is this typing all day like a crazy person instead of copy pasting some cool text from AI.</p>
+            <ul>
+              <li><i class="fa-regular fa-envelope"></i> One</li>
+              <li><i class="fa-regular fa-calendar"></i> Two</li>
+              <li><i class="fa-regular fa-font-awesome"></i> Three</li>
+            </ul>
+            <a class="btn">Case studies <i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+          <div class="effect" data-effect="4" data-color-test="#8a39e7" data-description-test="Manufacturing.">
+            <h4>Manufacturing.</h4>
+            <p>This is a long text describing the feature of whatever, Lorem ipsum dolor sit on this yo, what is this typing all day like a crazy person instead of copy pasting some cool text from AI.</p>
+            <ul>
+              <li><i class="fa-regular fa-envelope"></i> One</li>
+              <li><i class="fa-regular fa-calendar"></i> Two</li>
+              <li><i class="fa-regular fa-font-awesome"></i> Three</li>
+            </ul>
+            <a class="btn">Case studies <i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+          <div class="effect" data-effect="5" data-color-test="#a863f7" data-description-test="Goverments.">
+            <h4>Goverments.</h4>
+            <p>This is a long text describing the feature of whatever, Lorem ipsum dolor sit on this yo, what is this typing all day like a crazy person instead of copy pasting some cool text from AI.</p>
+            <ul>
+              <li><i class="fa-regular fa-envelope"></i> One</li>
+              <li><i class="fa-regular fa-calendar"></i> Two</li>
+              <li><i class="fa-regular fa-font-awesome"></i> Three</li>
+            </ul>
+            <a class="btn">Case studies <i class="fa-solid fa-chevron-right"></i></a>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <footer>
+      YASS by <a href="https://github.com/bembit/yet-another-shader-site">bembit</a>. Logos from <a href="">logotouse.com</a>
+    </footer>
+
+  </body>
+</html>
