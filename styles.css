@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap'); */
+
 *, *::after, *::before {
 	margin: 0 0;
 	padding: 0 0;
@@ -11,11 +15,21 @@
 
 body { 
 	margin: 0;
-	overflow-x: hidden;
-	font-family: "Urbanist", sans-serif;
-	font-optical-sizing: auto;
-	font-weight: normal;
+	overflow: hidden;
+	/* overflow-x: hidden; */
+	/* I don't hate this. */
+	font-family: "Bangers", system-ui;
+	font-weight: 400;
 	font-style: normal;
+	letter-spacing: 2px;
+	/* font-family: "Silkscreen", sans-serif;
+	font-weight: 400;
+	font-style: normal; */
+	/* I like this one. */
+	/* font-family: "Changa", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal; */
 	color: white;
 	display: flex;
 	flex-direction: column;
@@ -39,14 +53,14 @@ a.btn {
 	padding: 8px 16px;
 	font-weight: 600;
 	border: 1px solid white;
-	border-radius: 25px;
+	/* border-radius: 25px; */
 	display: inline-block;
-	box-shadow: 2px 2px 150px 75px rgba(255, 141, 236, 0.1);
+	box-shadow: 2px 2px 150px 75px rgba(141, 168, 255, 0.05);
 }
 
 a.btn:last-of-type {
 	border: 1px solid transparent;
-	border-radius: 25px;
+	/* border-radius: 25px; */
 	display: inline-block;
 }
 
@@ -65,7 +79,7 @@ a.btn:not(.gradient-button):hover {
 }
 
 .gradient-button {
-	background: linear-gradient(45deg, #e226b9, #8a39e7, #d247e4, #a863f7);
+	background: linear-gradient(45deg, #4226e2, #3999e7, #477ee4, #63a8f7);
 	background-size: 300% 300%;
 	animation: gradientMove 4s infinite linear;
 	outline: none;
@@ -81,8 +95,8 @@ canvas {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
+	/* width: 100%; */
+	/* height: 100%; */
 	z-index: -1;
 }
 
@@ -99,6 +113,15 @@ header {
 	min-height: 75px;
 	max-height: 75px;
 }
+.asd {
+	color: #FBC02D;
+	color: #1d5eeb;
+	color: #1ac522;
+	color: #b91d59;
+	color: #d61dbd;
+	color: #1aceb0;
+
+}
 
 header nav {
 	display: flex;
@@ -112,8 +135,9 @@ header nav {
 
 header img {
 	height: 30px;
-	border: .5px solid aqua;
+	/* border: .5px solid aqua; */
 	border-radius: 50%;
+	box-shadow: 2px 2px 75px 25px rgba(141, 168, 255, 0.1);
 }
 
 header nav ul {
@@ -123,7 +147,7 @@ header nav ul {
 		margin-right: 15px;
 	}
 	li:hover {
-		border-bottom: 1px solid white;
+		/* border-bottom: 1px solid white; */
 		cursor: pointer;
 		color: white;
 	}
@@ -167,7 +191,7 @@ section.hero {
 div.hover-info-container {
 	position: absolute;
 	top: 33%;
-	left: 34.5%;
+	left: 24.5%;
 	text-align: left;
 	display: flex;
 	flex-direction: column;
@@ -195,7 +219,7 @@ div.hover-info-container {
 	flex-basis: calc(100% / 6);
 	text-align: center;
 	background-color: rgba(255, 141, 236, 0.02);
-	transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275), flex-basis .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -214,14 +238,13 @@ div.hover-info-container {
 		box-shadow: none;
 		border: 2px solid white;
 		color: black;
-		display: none;
 		align-self: flex-start;
 		background-color: white;
 		font-weight: 700;
 	}
 
 	a.btn:hover {
-		color: #8a39e7;
+		color: #3c39e7;
 	}
 
 }
@@ -229,7 +252,6 @@ div.hover-info-container {
 .effects-container div.effect ul {
 	margin-top: 25px;
 	align-self: flex-start;
-	display: none;
 	text-align: left;
 	color: rgb(0, 0, 0);
 	font-weight: 500;
@@ -246,14 +268,38 @@ div.hover-info-container {
 	margin-top: 25px;
 	text-align: left;
 	color: black;
-	display: none;
+	/* display: none; */
 	font-weight: 500;
 }
 
-.effects-container div.effect:hover p, .effects-container div.effect:hover a.btn, .effects-container div.effect:hover ul {
-	display: block;
-
+.effects-container div.effect p,
+.effects-container div.effect a.btn,
+.effects-container div.effect ul {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px); /* Optional slight movement */
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0s linear;
 }
+
+.effects-container div.effect:hover p,
+.effects-container div.effect:hover a.btn,
+.effects-container div.effect:hover ul {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0.3s; /* Delays only when appearing */
+}
+
+/* Ensures visibility is removed immediately when not hovered */
+.effects-container div.effect:not(:hover) p,
+.effects-container div.effect:not(:hover) a.btn,
+.effects-container div.effect:not(:hover) ul {
+    transition: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+}
+
 .effects-container div.effect:hover h4 {
 	color: black;
 	font-weight: 900;
@@ -261,19 +307,46 @@ div.hover-info-container {
 
 .effects-container div.effect:hover {
 	transform: translateY(-50px);
-	border-top-left-radius: 15px;
+	/* border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
 	border-top-right-radius: 15px;
-	border-bottom-right-radius: 15px;
+	border-bottom-right-radius: 15px; */
 	border-bottom: 5px solid white;
 	/* good idea */
-	/* flex-basis: calc(100% / 2); */
+	flex-basis: calc(100% / 4);
+	cursor: pointer;
 }
 
 /* could shrink the rest when one is actice */
 .effects-container:hover div.effect:not(:hover) {
-	/* flex-basis: calc(100% / 8); */
+	flex-basis: calc(100% / 6);
 	/* border: 1px solid red; */
+}
+
+.animatedDiv {
+	animation-name: jiggle;
+	animation-delay: 1s;
+	animation-duration: 2s;
+	animation-timing-function: ease-in;
+	animation-iteration-count: 1;
+}
+
+@keyframes jiggle {
+	48%,
+	62% {
+		transform: scale(1, 1) translateY(-50px);
+	}
+	50% {
+		transform: scale(1.1, 0.9) translateY(-50px);
+	}
+	56% {
+		/* transform: scale(0.9, 1.1) translate(0, -5px); */
+		transform: scale(0.9, 1.1) translateY(-45px);
+	}
+	59% {
+		/* transform: scale(1, 1) translate(0, -3px); */
+		transform: scale(1, 1) translateY(-48px);
+	}
 }
 
 @media screen and (max-height: 1050px) {
