@@ -65,7 +65,7 @@ a.btn:not(.gradient-button):hover {
 }
 
 .gradient-button {
-	background: linear-gradient(45deg, #e226b9, #8a39e7, #d247e4, #a863f7);
+	background: linear-gradient(45deg, #4226e2, #3999e7, #477ee4, #63a8f7);
 	background-size: 300% 300%;
 	animation: gradientMove 4s infinite linear;
 	outline: none;
