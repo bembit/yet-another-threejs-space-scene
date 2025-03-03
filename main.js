@@ -125,8 +125,8 @@ let mouseX = 0;
 let mouseY = 0;
 
 // colors for transition
-const color1 = new THREE.Color(0xffff00);  // yellow
-const color2 = new THREE.Color(0x0000ff);  // blue
+const color1 = new THREE.Color(0xffffff);  // yellow
+const color2 = new THREE.Color(0xffff00);  // blue
 const color3 = new THREE.Color(0xfffff);  // white
 
 document.addEventListener('mousemove', (event) => {
@@ -134,15 +134,15 @@ document.addEventListener('mousemove', (event) => {
   mouseY = (event.clientY / window.innerHeight) - 0.5;
 });
 
-// add images to test
+// add planets to test
 
 // might replace these with planets.
-const images = []; // store stars for later reference
+const planets = [];
 
 const starCounts = 6;
 for (let i = 0; i < starCounts; i++) {
     // Create a sphere geometry and apply our custom shader material.
-    const geometry = new THREE.SphereGeometry(3, 128, 128);
+    const geometry = new THREE.SphereGeometry(2, 128, 128);
     const material = new THREE.ShaderMaterial({
       vertexShader: vertexShader,
       fragmentShader: fragmentShader
@@ -152,20 +152,23 @@ for (let i = 0; i < starCounts; i++) {
 
     // position each star randomly in the space
     sphere.position.set(
+        // (Math.random() - 0.1) * 100,
         (Math.random() - 0.1) * 100,
         (Math.random() - 0.1) * 100,
         (Math.random() - 3.2) * 100
     );
+    
+    console.log(sphere, sphere.position);
 
     //scale sthe star
     sphere.scale.set(1, 1, 1);
 
     scene.add(sphere);
 
-    images.push(sphere);
+    planets.push(sphere);
 }
 
-// zoom to images
+// zoom to planets
 function animateCamera(targetPosition, duration = 2000) {
     const startPosition = camera.position.clone();
     const startTime = performance.now();
@@ -184,7 +187,7 @@ function animateCamera(targetPosition, duration = 2000) {
 
         // check distance to target
 		if (camera.position.distanceTo(targetPosition) < 5) {
-            targetPosition = null; // stop further movement on zoom
+            // targetPosition = null; // stop further movement on zoom
 		}
         
         // interpolate camera position
@@ -206,7 +209,8 @@ function animateCamera(targetPosition, duration = 2000) {
 
 // zoom to image on click
 function zoomToImage(index, duration = 2000) {
-    const targetPosition = images[index].position.clone().sub(new THREE.Vector3(5, 0, 0)); // offset slightly for zoom effect
+    // where is my planet if I clone its position and jump to it with - 2 on Z still not visible plus they move. maybe that 
+    const targetPosition = planets[index].position.clone().sub(new THREE.Vector3(5, 0, -2)); // offset slightly for zoom effect
     animateCamera(targetPosition, duration);
 }
 
@@ -251,11 +255,12 @@ function animate() {
 
     camera.position.z -= 0.005;
 
-    images.forEach(image => {
+    planets.forEach(image => {
         image.position.z -= 0.006;
         image.rotation.y += 0.001;
     });
 
+    // little point stars
     const positions = starGeometry.attributes.position.array;
     for (let i = 0; i < starCount; i++) {
         if (positions[i * 3 + 2] + camera.position.z > 5) {
@@ -264,6 +269,7 @@ function animate() {
     }
     starGeometry.attributes.position.needsUpdate = true;
 
+    // color hover transitions
     const color = color1.clone();
     color.lerp(color2, (mouseX + 0.5));  // horizontal gradient transition
     color.lerp(color3, (mouseY + 0.5));  // vertical gradient transition
@@ -281,18 +287,26 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
 });
 
+// bunch of hacked in styles
 document.querySelectorAll('.effect').forEach(div => {
   const divToTarget = document.querySelector('.hover-info-container');
+
+  // const color = div.getAttribute('data-color-test');
+  // div.style.borderTop = `15px solid ${color}`;
+
   div.addEventListener('mouseenter', (event) => {
 
-    const effectId = parseInt(event.target.getAttribute('data-effect'), 10);
+    // const effectId = parseInt(event.target.getAttribute('data-effect'), 10);
 
     // These could be cleaned up
     divToTarget.textContent = event.target.getAttribute('data-description-test');
 
     // material.uniforms.uShape.value = effectId;
+    const color = event.target.getAttribute('data-color-test');
+    div.style.backgroundColor = color;
+    // div.style.borderTop = `15px solid ${color}`;
 
-    div.style.backgroundColor = event.target.getAttribute('data-color-test');
+    div.classList.add('animatedDiv')
     
   });
 
@@ -301,5 +315,7 @@ document.querySelectorAll('.effect').forEach(div => {
     // Tests
     div.style.backgroundColor = 'rgba(255, 141, 236, 0.02)';
     divToTarget.textContent = '';
+    div.classList.remove('animatedDiv')
+
   });
 });
