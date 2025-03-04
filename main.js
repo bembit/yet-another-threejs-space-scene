@@ -1,18 +1,26 @@
 import * as THREE from 'https://unpkg.com/three@0.125.1/build/three.module.js';
 
-// Vertex Shader: Passes along UV and normal data.
+// Adding the 6 planets needs.
+// define separate shaders for each
+// figure out the loop for the 6 planets how to add them all on a spehere
+// could add manually first one by one
+
+// Shared sphere geometry for all planets.
+const sharedGeometry = new THREE.SphereGeometry(2, 128, 128);
+
+// Vertex shader – simply passes along UVs and normals.
 const vertexShader = `
 varying vec2 vUv;
 varying vec3 vNormal;
 
 void main() {
   vUv = uv;
-  vNormal = normal;
+  vNormal = normalize(normal);
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
 `;
 
-// Fragment Shader: Creates a basic Earth-like look using procedural noise.
+// Fragment shader that uses the uPlanet uniform to switch between six planet styles.
 const fragmentShader = `
 #ifdef GL_ES
 precision mediump float;
@@ -20,15 +28,14 @@ precision mediump float;
 
 varying vec2 vUv;
 varying vec3 vNormal;
-
+uniform int uPlanet;
 const float PI = 3.14159265359;
 
-// A basic hash function
+// Simple hash and periodic noise functions used for procedural patterns.
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
 }
 
-// Periodic noise function that wraps every 'period' units.
 float pnoise(vec2 p, vec2 period) {
   vec2 i = mod(floor(p), period);
   vec2 f = fract(p);
@@ -39,18 +46,14 @@ float pnoise(vec2 p, vec2 period) {
   float d = hash(mod(i + vec2(1.0, 1.0), period));
   
   vec2 u = f * f * (3.0 - 2.0 * f);
-  
-  return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+  return mix(a, b, u.x) + (c - a)*u.y*(1.0 - u.x) + (d - b)*u.x*u.y;
 }
 
-// Fractal Brownian Motion (fbm) using periodic noise.
 float fbm(vec2 st) {
   float value = 0.0;
   float amplitude = 0.5;
   float frequency = 1.0;
-  // Define a fixed period for seamless noise.
   vec2 period = vec2(10.0, 10.0);
-  
   for (int i = 0; i < 5; i++) {
     value += amplitude * pnoise(st * frequency, period);
     frequency *= 2.0;
@@ -60,27 +63,68 @@ float fbm(vec2 st) {
 }
 
 void main() {
-  // Reconstruct spherical coordinates from the normal.
+  // Reconstruct spherical coordinates from the surface normal.
   float longitude = atan(vNormal.z, vNormal.x);
   float latitude = asin(vNormal.y);
   vec2 sphericalUV;
   sphericalUV.x = (longitude + PI) / (2.0 * PI);
   sphericalUV.y = (latitude + PI/2.0) / PI;
   
-  // Scale the UVs to control the noise detail.
-  vec2 st = sphericalUV * 10.0;
-  float n = fbm(st);
+  vec3 color = vec3(0.0);
   
-  // Threshold to separate land from water.
-  float threshold = 0.5;
-  vec3 landColor = vec3(0.1, 0.7, 0.1);
-  vec3 waterColor = vec3(0.0, 0.3, 0.7);
-  vec3 color = mix(waterColor, landColor, step(threshold, n));
+  // Use the uPlanet uniform to choose a style.
+  if(uPlanet == 0) {
+    // Planet 0: Earth-like (land and water)
+    vec2 st = sphericalUV * 10.0;
+    float n = fbm(st);
+    float threshold = 0.5;
+    vec3 waterColor = vec3(0.0, 0.3, 0.7);
+    vec3 landColor = vec3(0.1, 0.7, 0.1);
+    color = mix(waterColor, landColor, step(threshold, n));
+  } else if(uPlanet == 1) {
+    // Planet 1: Mars-like (reddish, rocky)
+    vec2 st = sphericalUV * 10.0;
+    float n = fbm(st);
+    float threshold = 0.4;
+    vec3 marsDark = vec3(0.5, 0.2, 0.1);
+    vec3 marsLight = vec3(0.8, 0.4, 0.3);
+    color = mix(marsDark, marsLight, step(threshold, n));
+  } else if(uPlanet == 2) {
+    // Planet 2: Saturn-like (banded appearance)
+    float bands = abs(sin(sphericalUV.y * PI * 10.0));
+    vec3 saturnBase = vec3(0.9, 0.8, 0.6);
+    vec3 saturnBand = vec3(0.8, 0.7, 0.5);
+    color = mix(saturnBase, saturnBand, bands);
+  } else if(uPlanet == 3) {
+    // Planet 3: Icy planet – cool blues and whites
+    vec2 st = sphericalUV * 15.0;
+    float n = fbm(st);
+    float threshold = 0.45;
+    vec3 iceBase = vec3(0.7, 0.8, 0.9);
+    vec3 iceHighlight = vec3(0.9, 0.9, 1.0);
+    color = mix(iceBase, iceHighlight, step(threshold, n));
+  } else if(uPlanet == 4) {
+    // Planet 4: Gas giant with swirling stormy patterns
+    vec2 st = sphericalUV * 20.0;
+    float n = fbm(st);
+    float swirl = abs(sin(sphericalUV.x * PI * 20.0));
+    vec3 baseColor = vec3(0.9, 0.6, 0.4);
+    vec3 stormColor = vec3(0.7, 0.4, 0.2);
+    color = mix(baseColor, stormColor, swirl * n);
+  } else if(uPlanet == 5) {
+    // Planet 5: Volcanic world with dark surfaces and red-hot accents
+    vec2 st = sphericalUV * 10.0;
+    float n = fbm(st);
+    float threshold = 0.55;
+    vec3 baseRock = vec3(0.2, 0.2, 0.2);
+    vec3 lava = vec3(0.9, 0.3, 0.1);
+    color = mix(baseRock, lava, smoothstep(threshold - 0.1, threshold + 0.1, n));
+  }
   
   // Apply simple directional lighting.
   vec3 lightDir = normalize(vec3(1.0, 1.0, 1.0));
-  float light = dot(normalize(vNormal), lightDir) * 0.5 + 0.5;
-  color *= light;
+  float lightIntensity = dot(normalize(vNormal), lightDir) * 0.5 + 0.5;
+  color *= lightIntensity;
   
   gl_FragColor = vec4(color, 1.0);
 }
@@ -136,36 +180,36 @@ document.addEventListener('mousemove', (event) => {
 
 // add planets to test
 
-// might replace these with planets.
+// Create an array to store the planet meshes.
 const planets = [];
+const planetCount = 6; // 6 individual planets
 
-const starCounts = 6;
-for (let i = 0; i < starCounts; i++) {
-    // Create a sphere geometry and apply our custom shader material.
-    const geometry = new THREE.SphereGeometry(2, 128, 128);
-    const material = new THREE.ShaderMaterial({
-      vertexShader: vertexShader,
-      fragmentShader: fragmentShader
-    });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-
-    // position each star randomly in the space
-    sphere.position.set(
-        // (Math.random() - 0.1) * 100,
-        (Math.random() - 0.1) * 100,
-        (Math.random() - 0.1) * 100,
-        (Math.random() - 3.2) * 100
-    );
-    
-    console.log(sphere, sphere.position);
-
-    //scale sthe star
-    sphere.scale.set(1, 1, 1);
-
-    scene.add(sphere);
-
-    planets.push(sphere);
+for (let i = 0; i < planetCount; i++) {
+  // Each planet gets its own ShaderMaterial with the shared shaders and a unique uPlanet value.
+  const material = new THREE.ShaderMaterial({
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
+    uniforms: {
+      uPlanet: { value: i }  // 0 to 5 for different planet types.
+    }
+  });
+  
+  // Use the shared geometry.
+  const sphere = new THREE.Mesh(sharedGeometry, material);
+  
+  // Position each planet randomly in space.
+  sphere.position.set(
+    (Math.random() - 0.1) * 100,
+    (Math.random() - 0.1) * 100,
+    (Math.random() - 3.2) * 100
+  );
+  
+  // Optionally scale the sphere.
+  sphere.scale.set(1, 1, 1);
+  
+  // Add the planet to the scene and to the array.
+  scene.add(sphere);
+  planets.push(sphere);
 }
 
 // zoom to planets
