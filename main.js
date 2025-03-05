@@ -254,7 +254,7 @@ function animateCamera(targetPosition, duration = 2000) {
 // zoom to image on click
 function zoomToImage(index, duration = 2000) {
     // where is my planet if I clone its position and jump to it with - 2 on Z still not visible plus they move. maybe that 
-    const targetPosition = planets[index].position.clone().sub(new THREE.Vector3(5, 0, -2)); // offset slightly for zoom effect
+    const targetPosition = planets[index].position.clone().sub(new THREE.Vector3(2, 1, -5)); // offset slightly for zoom effect
     animateCamera(targetPosition, duration);
 }
 
@@ -297,10 +297,10 @@ let isZooming = true;
 function animate() {
     requestAnimationFrame(animate);
 
-    camera.position.z -= 0.005;
+    camera.position.z -= 0.001;
 
     planets.forEach(image => {
-        image.position.z -= 0.006;
+        image.position.z -= 0.0015;
         image.rotation.y += 0.001;
     });
 
@@ -358,7 +358,7 @@ document.querySelectorAll('.effect').forEach(div => {
     // material.uniforms.uShape.value = 0; // Other -1 value spot
     // Tests
     div.style.backgroundColor = 'rgba(255, 141, 236, 0.02)';
-    divToTarget.textContent = '';
+    divToTarget.textContent = 'Earth?';
     div.classList.remove('animatedDiv')
 
   });

@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap'); */
 /* @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap'); */
 /* @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Orbitron:wght@400..900&display=swap');
 
 *, *::after, *::before {
 	margin: 0 0;
@@ -8,8 +9,15 @@
 	box-sizing: border-box;
 }
 
+.funnel-sans {
+	font-family: "Funnel Sans", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+  }
+
 ::selection {
-	color: #8a39e7;
+	color: #1d5eeb;
 	background-color: #fff;
 }
 
@@ -18,10 +26,10 @@ body {
 	overflow: hidden;
 	/* overflow-x: hidden; */
 	/* I don't hate this. */
-	font-family: "Bangers", system-ui;
+	/* font-family: "Bangers", system-ui;
 	font-weight: 400;
-	font-style: normal;
-	letter-spacing: 2px;
+	font-style: normal; */
+	/* letter-spacing: 2px; */
 	/* font-family: "Silkscreen", sans-serif;
 	font-weight: 400;
 	font-style: normal; */
@@ -30,6 +38,10 @@ body {
 	font-optical-sizing: auto;
 	font-weight: 400;
 	font-style: normal; */
+	font-family: "Orbitron", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
 	color: white;
 	display: flex;
 	flex-direction: column;
@@ -133,9 +145,14 @@ header nav {
 	color: #cecece;
 }
 
+nav .logo {
+	display: flex;
+	align-items: center;
+}
+
 header img {
 	height: 30px;
-	/* border: .5px solid aqua; */
+	border: 2px solid white;
 	border-radius: 50%;
 	box-shadow: 2px 2px 75px 25px rgba(141, 168, 255, 0.1);
 }
@@ -190,8 +207,8 @@ section.hero {
 
 div.hover-info-container {
 	position: absolute;
-	top: 33%;
-	left: 24.5%;
+	top: 66%;
+	left: 19.5%;
 	text-align: left;
 	display: flex;
 	flex-direction: column;
@@ -225,7 +242,7 @@ div.hover-info-container {
 	align-items: center;
 	border-top: 15px solid rgba(255, 141, 236, 0.02);
 	padding: 0 2%;
-
+	font-size: 14px;
 	h4 {
 		margin-top: 25px;
 		font-size: 22px;
@@ -241,6 +258,11 @@ div.hover-info-container {
 		align-self: flex-start;
 		background-color: white;
 		font-weight: 700;
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding-left: 35px;
+		clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 0% 50%);
 	}
 
 	a.btn:hover {
@@ -255,6 +277,11 @@ div.hover-info-container {
 	text-align: left;
 	color: rgb(0, 0, 0);
 	font-weight: 500;
+	font-size: 14px;
+	span {
+		/* color: white; */
+		font-weight: 900;
+	}
 	i {
 		min-width: 25px;
 	}
@@ -270,6 +297,7 @@ div.hover-info-container {
 	color: black;
 	/* display: none; */
 	font-weight: 500;
+	line-height: 1.5;
 }
 
 .effects-container div.effect p,
@@ -313,13 +341,13 @@ div.hover-info-container {
 	border-bottom-right-radius: 15px; */
 	border-bottom: 5px solid white;
 	/* good idea */
-	flex-basis: calc(100% / 4);
+	flex-basis: calc(100% / 3);
 	cursor: pointer;
 }
 
 /* could shrink the rest when one is actice */
 .effects-container:hover div.effect:not(:hover) {
-	flex-basis: calc(100% / 6);
+	flex-basis: calc(100% / 7);
 	/* border: 1px solid red; */
 }
 
